@@ -8,7 +8,7 @@
 </head>
 <body>
     <h2>Edit Student</h2>
-<form action="/update/<%= student._id %>" method="POST">
+<form id="taskForm" action="/update/<%= student._id %>" method="POST">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" value="<%= student.name %>" required />
 
@@ -21,7 +21,56 @@
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" value="<%= student.email %>" required />
 
+    <p class="error" id="formError" style="color: red; display: none;"></p>
+
     <button type="submit">Update</button>
 </form>
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+        const taskForm = document.getElementById('taskForm');
+        taskForm.addEventListener('submit',function (event) {
+            if(!validateForm(taskForm)){
+                event.preventDefault();
+            }
+        });
+        function validateForm(form) {
+            const name = form.querySelector('input[name="name"]')
+            const age = form.querySelector('input[name="age"]')
+            const email = form.querySelector('input[name="email"]');
+            const grade = form.querySelector('input[name="grade"]');
+            const errorElement = form.querySelector('.error');
+
+            // Reset previous errors
+            errorElement.style.display = 'none';
+
+            if (!name.value.trim()) {
+                errorElement.textContent = 'Name is required.';
+                errorElement.style.display = 'block';
+                return false;
+            }
+            if (!age.value.trim()) {
+                errorElement.textContent = 'Age is required.';
+                errorElement.style.display = 'block';
+                return false;
+            }
+            if(!grade.value.trim()){
+                errorElement.textContent = 'Grade is required'
+                errorElement.style.display = 'block';
+                return false
+            }
+            if (email && !validateEmail(email.value.trim())) {
+                errorElement.textContent = 'Invalid email format.';
+                errorElement.style.display = 'block';
+                return false;
+            }
+            return true
+        }
+        function validateEmail(email) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailPattern.test(email);
+        }
+    })
+    
+</script>
 </body>
 </html>
