@@ -1,4 +1,13 @@
-<h2>Edit Student</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/edit.css">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Edit Student</h2>
 <form action="/update/<%= student._id %>" method="POST">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" value="<%= student.name %>" required />
@@ -14,3 +23,5 @@
 
     <button type="submit">Update</button>
 </form>
+</body>
+</html>
