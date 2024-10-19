@@ -10,11 +10,12 @@
     <div class="container">
         <h1>Student Management</h1>
 
-        <form action="/add" method="POST">
-            <input type="text" name="name" placeholder="Name" required>
-            <input type="number" name="age" placeholder="Age" required>
-            <input type="text" name="grade" placeholder="Grade" required>
-            <input type="email" name="email" placeholder="Email" required>
+        <form id="taskForm" action="/add" method="POST">
+            <input type="text" name="name" placeholder="Name">
+            <input type="number" name="age" placeholder="Age">
+            <input type="text" name="grade" placeholder="Grade">
+            <input type="email" name="email" placeholder="Email">
+            <p class="error" id="formError" style="color: red; display: none;"></p>
             <button type="submit">Add Student</button>
         </form>
 
@@ -33,5 +34,52 @@
             <% }) %>
         </ul>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            const taskForm = document.getElementById('taskForm');
+            taskForm.addEventListener('submit',function (event) {
+                if(!validateForm(taskForm)){
+                    event.preventDefault();
+                }
+            });
+            function validateForm(form) {
+                const name = form.querySelector('input[name="name"]')
+                const age = form.querySelector('input[name="age"]')
+                const email = form.querySelector('input[name="email"]');
+                const grade = form.querySelector('input[name="grade"]');
+                const errorElement = form.querySelector('.error');
+
+                // Reset previous errors
+                errorElement.style.display = 'none';
+
+                if (!name.value.trim()) {
+                    errorElement.textContent = 'Name is required.';
+                    errorElement.style.display = 'block';
+                    return false;
+                }
+                if (!age.value.trim()) {
+                    errorElement.textContent = 'Age is required.';
+                    errorElement.style.display = 'block';
+                    return false;
+                }
+                if(!grade.value.trim()){
+                    errorElement.textContent = 'Grade is required'
+                    errorElement.style.display = 'block';
+                    return false
+                }
+                if (email && !validateEmail(email.value.trim())) {
+                    errorElement.textContent = 'Invalid email format.';
+                    errorElement.style.display = 'block';
+                    return false;
+                }
+                return true
+            }
+            function validateEmail(email) {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailPattern.test(email);
+            }
+        })
+        
+    </script>
 </body>
 </html>
