@@ -31,5 +31,12 @@ export class StudentService {
             throw new Error('Error deleting student');
         }
     }
+    async getStudentById(id: string): Promise<IStudent | null> {
+        try {
+            return await Student.findById(id)
+        } catch (error) {
+            throw new Error('Error update Student details')
+        }
+    }
 }
 

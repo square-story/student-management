@@ -42,3 +42,13 @@ export async function deleteStudent(req: Request, res: Response): Promise<void> 
         res.status(500).send('Error deleting student');
     }
 }
+
+export async function getEditForm(req: Request, res: Response) {
+    try {
+        const { id } = req.params;
+        const student = await studentService.getStudentById(id);
+        res.render('editStudent', { student });
+    } catch (error) {
+
+    }
+}

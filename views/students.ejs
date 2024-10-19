@@ -23,7 +23,7 @@
             <% students.forEach(student => { %>
                 <li>
                     <strong><%= student.name %></strong> <%= student.age %> years old, Grade: <%= student.grade %>, Email: <%= student.email %>
-                    <form action="/update/<%= student._id %>" method="POST" style="display:inline;">
+                    <form action="/edit/<%= student._id %>" method="get" style="display:inline;">
                         <button type="submit">Edit</button>
                     </form>
                     <form action="/delete/<%= student._id %>" method="POST" style="display:inline;">
